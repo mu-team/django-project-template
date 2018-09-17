@@ -51,7 +51,7 @@ cd ${PWD}/${PROJECT_NAME}
 ${PWD}/scripts/dev_setup.sh
 ```
 
-# Manual `git` setup
+### Manual `git` setup
 
 ```bash
 echo -n "Project name: "   && read PROJECT_NAME
