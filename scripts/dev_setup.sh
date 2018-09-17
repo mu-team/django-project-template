@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 
-set -e
-
 LOCAL_EXAMPLE=${PWD}/src/project/settings/local.example.py
 LOCAL_SETTINGS=${PWD}/src/project/settings/local.py
 
-# fixme [07.09.2018]: for debug
-rm -f ${LOCAL_SETTINGS}
-
 install_requirements() {
     pip install -r ${PWD}/requirements/dev.txt
+    if [ "$?" != "0" ]; then
+        echo "Permission denied: virtualenv is not activated." && exit 1
+    fi
 }
 
 setup_local_settings() {
@@ -52,5 +50,20 @@ setup_local_settings() {
         s|--DB_PASSWORD--|${DB_PASSWORD}|;" ${LOCAL_SETTINGS}
 }
 
+configure_git_repo() {
+    echo -n "Git user name: " && read GIT_USER
+    echo -n "Git user email: " && read GIT_EMAIL
+    echo -n "Origin url: " && read ORIGIN
+
+    git config --local user.name ${GIT_USER}
+    git config --local user.email ${GIT_EMAIL}
+    git remote set-url origin ${ORIGIN}
+
+    git add .
+    git commit -m "Initial commit"
+    git push -u origin master
+}
+
 install_requirements
 setup_local_settings
+configure_git_repo

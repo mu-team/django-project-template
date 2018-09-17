@@ -41,7 +41,32 @@ ipdb    == 0.11
 
 ### Useful scripts
 
-Setup development environment from scratch:
+1. Setup development environment from scratch:
+
 ```bash
+echo -n "Project name: " && read PROJECT_NAME
+git clone https://github.com/mu-team/django-project-template.git ${PWD}/${PROJECT_NAME}
+cd ${PWD}/${PROJECT_NAME}
+
 ${PWD}/scripts/dev_setup.sh
+```
+
+# Manual `git` setup
+
+```bash
+echo -n "Project name: "   && read PROJECT_NAME
+git clone https://github.com/mu-team/django-project-template.git ${PWD}/${PROJECT_NAME}
+cd ${PWD}/${PROJECT_NAME}
+
+echo -n "Git user name: "  && read GIT_USER
+echo -n "Git user email: " && read GIT_EMAIL
+echo -n "Origin url: "     && read ORIGIN
+
+git config --local user.name  ${GIT_USER}
+git config --local user.email ${GIT_EMAIL}
+git remote set-url origin     ${ORIGIN}
+
+git add .
+git commit -m "Initial commit"
+git push -u origin master
 ```
