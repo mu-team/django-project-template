@@ -26,31 +26,27 @@ git push -u origin master
 scripts/dev_setup.sh
 ```
 
-### Current Versions
+### System requirements
 
-```
-# for common usage:
-django == 2.1.1
-
-# for dev usage:
-ipython == 6.5.0
-ipdb    == 0.11
+```bash
+python --version >= 3.4.0
 ```
 
 ### The project template hierarchy
 
 ```
+- docker/*                   # all docker integration files, except `.dockerignore`
 - requirements/
-              / - common.txt  # common dependencies for development and production environments
-              / - dev.txt     # only for development environment
-              / - prod.txt    # only for production environment
+              / - common.txt # common dependencies for development and production environments
+              / - dev.txt    # only for development environment
+              / - prod.txt   # only for production environment
 - src/
-     / - apps/...             # all user-defined apps collect here (via `./manage.py startapp`)
-     / - project/...          # all project-wide configuration (settings, urls, etc.) collect here
-     / - static/...           # all static sources collect here (js, css, etc.)
-     / - templates/...        # all common/non-standard templates collect here
-- static/...                  # `./manage.py collectstatic` root directory
-- manage.py                   # project controls
+     / - apps/*              # all user-defined apps collect here (via `./manage.py startapp`)
+     / - project/*           # all project-wide configuration (settings, urls, etc.) collect here
+     / - static/*            # all static sources collect here (js, css, etc.)
+     / - templates/*         # all common/non-standard templates collect here
+- static/*                   # `./manage.py collectstatic` root directory
+- manage.py                  # project controls
 ```
 
 ### Conventions
@@ -61,6 +57,16 @@ ipdb    == 0.11
    Example: `mkdir -p src/apps/core && ./manage.py startapp core src/apps/core`.
 3. Installed apps must be separated by `INSTALLED_APPS`, `THIRD_PARTY_APPS`, `PROJECT_APPS`.
    `INSTALLED_APPS` contains only `django` core apps.
+
+### Docker integration
+
+Supported by `docker` and `docker-compose` as ready-to-update services.
+Need to specify `-f` on each `docker-compose` or `docker` command.
+
+```bash
+docker-compose -f docker/docker-compose.yml up --build
+docker-compose -f docker/docker-compose.yml down
+```
 
 ### Useful scripts
 

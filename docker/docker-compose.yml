@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  django:
+    image: django-server:latest
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: --run-server
+    networks:
+      - django-network
+    env_file:
+      - vars.env
+    ports:
+      - 8000:8000
+    depends_on:
+      - django-db
+
+  django-db:
+    image: postgres:latest
+    networks:
+      - django-network
+    volumes:
+      - django-volume:/djangodb
+    env_file:
+      - vars.env
+
+networks:
+  django-network:
+
+volumes:
+  django-volume:
