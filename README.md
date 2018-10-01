@@ -58,7 +58,7 @@ python --version >= 3.4.0
 3. Installed apps must be separated by `INSTALLED_APPS`, `THIRD_PARTY_APPS`, `PROJECT_APPS`.
    `INSTALLED_APPS` contains only `django` core apps.
 
-### Docker integration
+### Docker support
 
 Supported by `docker` and `docker-compose` as ready-to-update services.
 Need to specify `-f` on each `docker-compose` or `docker` command.
